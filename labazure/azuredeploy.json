@@ -1,0 +1,288 @@
+param virtualMachines_VM1_name string = 'VM1'
+param virtualMachines_VM2_name string = 'VM2'
+param publicIPAddresses_VM1_ip_name string = 'VM1-ip'
+param publicIPAddresses_VM2_ip_name string = 'VM2-ip'
+param virtualNetworks_app_vnet_name string = 'app-vnet'
+param networkInterfaces_VM1_nic_name string = 'VM1-nic'
+param networkInterfaces_VM2_nic_name string = 'VM2-nic'
+
+resource publicIPAddresses_VM1_ip_name_resource 'Microsoft.Network/publicIPAddresses@2022-07-01' = {
+  name: publicIPAddresses_VM1_ip_name
+  location: 'eastus22'
+  sku: {
+    name: 'Basic'
+    tier: 'Regional'
+  }
+  properties: {
+    ipAddress: '40.87.123.79'
+    publicIPAddressVersion: 'IPv4'
+    publicIPAllocationMethod: 'Dynamic'
+    idleTimeoutInMinutes: 4
+    ipTags: []
+  }
+}
+
+resource publicIPAddresses_VM2_ip_name_resource 'Microsoft.Network/publicIPAddresses@2022-07-01' = {
+  name: publicIPAddresses_VM2_ip_name
+  location: 'eastus2'
+  sku: {
+    name: 'Basic'
+    tier: 'Regional'
+  }
+  properties: {
+    ipAddress: '40.87.123.72'
+    publicIPAddressVersion: 'IPv4'
+    publicIPAllocationMethod: 'Dynamic'
+    idleTimeoutInMinutes: 4
+    ipTags: []
+  }
+}
+
+resource virtualMachines_VM1_name_resource 'Microsoft.Compute/virtualMachines@2022-08-01' = {
+  name: virtualMachines_VM1_name
+  location: 'eastus2'
+  properties: {
+    hardwareProfile: {
+      vmSize: 'Standard_D2S_v3'
+    }
+    storageProfile: {
+      imageReference: {
+        publisher: 'Canonical'
+        offer: 'UbuntuServer'
+        sku: '18.04-LTS'
+        version: 'latest'
+      }
+      osDisk: {
+        osType: 'Linux'
+        name: '${virtualMachines_VM1_name}_disk1_6a38f4133b104e6fb10ee60804d2902b'
+        createOption: 'FromImage'
+        caching: 'ReadWrite'
+        managedDisk: {
+          storageAccountType: 'Standard_LRS'
+        }
+        deleteOption: 'Detach'
+        diskSizeGB: 30
+      }
+      dataDisks: []
+    }
+    osProfile: {
+      computerName: virtualMachines_VM1_name
+      adminUsername: 'AzureAdmin'
+      adminPassword: 'A1${uniqueString(resourceGroup().id)}'
+      linuxConfiguration: {
+        disablePasswordAuthentication: false
+        patchSettings: {
+          patchMode: 'ImageDefault'
+          assessmentMode: 'ImageDefault'
+        }
+        enableVMAgentPlatformUpdates: false
+      }
+      secrets: []
+    }
+    networkProfile: {
+      networkInterfaces: [
+        {
+          id: networkInterfaces_VM1_nic_name_resource.id
+          properties: {
+            primary: true
+          }
+        }
+      ]
+    }
+  }
+}
+
+resource virtualMachines_VM2_name_resource 'Microsoft.Compute/virtualMachines@2022-08-01' = {
+  name: virtualMachines_VM2_name
+  location: 'eastus2'
+  properties: {
+    hardwareProfile: {
+      vmSize: 'Standard_D2s_v3'
+    }
+    storageProfile: {
+      imageReference: {
+        publisher: 'Canonical'
+        offer: 'UbuntuServer'
+        sku: '18.04-LTS'
+        version: 'latest'
+      }
+      osDisk: {
+        osType: 'Linux'
+        name: '${virtualMachines_VM2_name}_disk1_a76711e00aa04f15a1a08e59308344ed'
+        createOption: 'FromImage'
+        caching: 'ReadWrite'
+        managedDisk: {
+          storageAccountType: 'Standard_LRS'
+        }
+        deleteOption: 'Detach'
+        diskSizeGB: 30
+      }
+      dataDisks: []
+    }
+    osProfile: {
+      computerName: virtualMachines_VM2_name
+      adminUsername: 'AzureAdmin'
+      adminPassword: 'A1${uniqueString(resourceGroup().id)}'
+      linuxConfiguration: {
+        disablePasswordAuthentication: false
+        patchSettings: {
+          patchMode: 'ImageDefault'
+          assessmentMode: 'ImageDefault'
+        }
+        enableVMAgentPlatformUpdates: false
+      }
+      secrets: []
+    }
+    networkProfile: {
+      networkInterfaces: [
+        {
+          id: networkInterfaces_VM2_nic_name_resource.id
+          properties: {
+            primary: true
+          }
+        }
+      ]
+    }
+  }
+}
+
+resource networkInterfaces_VM1_nic_name_resource 'Microsoft.Network/networkInterfaces@2022-07-01' = {
+  name: networkInterfaces_VM1_nic_name
+  location: 'eastus2'
+  kind: 'Regular'
+  properties: {
+    ipConfigurations: [
+      {
+        name: 'ipconfig1'
+        id: '${networkInterfaces_VM1_nic_name_resource.id}/ipConfigurations/ipconfig1'
+        type: 'Microsoft.Network/networkInterfaces/ipConfigurations'
+        properties: {
+          provisioningState: 'Succeeded'
+          privateIPAddress: '10.1.0.4'
+          privateIPAllocationMethod: 'Dynamic'
+          publicIPAddress: {
+            id: publicIPAddresses_VM1_ip_name_resource.id
+          }
+          subnet: {
+            id: virtualNetworks_app_vnet_name_frontend.id
+          }
+          primary: true
+          privateIPAddressVersion: 'IPv4'
+        }
+      }
+    ]
+    dnsSettings: {
+      dnsServers: []
+    }
+    enableAcceleratedNetworking: false
+    enableIPForwarding: false
+    disableTcpStateTracking: false
+    nicType: 'Standard'
+  }
+}
+
+resource networkInterfaces_VM2_nic_name_resource 'Microsoft.Network/networkInterfaces@2022-07-01' = {
+  name: networkInterfaces_VM2_nic_name
+  location: 'eastus2'
+  kind: 'Regular'
+  properties: {
+    ipConfigurations: [
+      {
+        name: 'ipconfig1'
+        id: '${networkInterfaces_VM2_nic_name_resource.id}/ipConfigurations/ipconfig1'
+        type: 'Microsoft.Network/networkInterfaces/ipConfigurations'
+        properties: {
+          provisioningState: 'Succeeded'
+          privateIPAddress: '10.1.1.4'
+          privateIPAllocationMethod: 'Dynamic'
+          publicIPAddress: {
+            id: publicIPAddresses_VM2_ip_name_resource.id
+          }
+          subnet: {
+            id: virtualNetworks_app_vnet_name_backend.id
+          }
+          primary: true
+          privateIPAddressVersion: 'IPv4'
+        }
+      }
+    ]
+    dnsSettings: {
+      dnsServers: []
+    }
+    enableAcceleratedNetworking: false
+    enableIPForwarding: false
+    disableTcpStateTracking: false
+    nicType: 'Standard'
+  }
+}
+
+resource virtualNetworks_app_vnet_name_backend 'Microsoft.Network/virtualNetworks/subnets@2022-07-01' = {
+  name: '${virtualNetworks_app_vnet_name}/backend'
+  properties: {
+    addressPrefix: '10.1.1.0/24'
+    delegations: []
+    privateEndpointNetworkPolicies: 'Disabled'
+    privateLinkServiceNetworkPolicies: 'Enabled'
+  }
+  dependsOn: [
+    virtualNetworks_app_vnet_name_resource
+  ]
+}
+
+resource virtualNetworks_app_vnet_name_frontend 'Microsoft.Network/virtualNetworks/subnets@2022-07-01' = {
+  name: '${virtualNetworks_app_vnet_name}/frontend'
+  properties: {
+    addressPrefix: '10.1.0.0/24'
+    delegations: []
+    privateEndpointNetworkPolicies: 'Disabled'
+    privateLinkServiceNetworkPolicies: 'Enabled'
+  }
+  dependsOn: [
+    virtualNetworks_app_vnet_name_resource
+  ]
+}
+
+resource virtualNetworks_app_vnet_name_resource 'Microsoft.Network/virtualNetworks@2022-07-01' = {
+  name: virtualNetworks_app_vnet_name
+  location: 'eastus2'
+  properties: {
+    addressSpace: {
+      addressPrefixes: [
+        '10.1.0.0/16'
+      ]
+    }
+    dhcpOptions: {
+      dnsServers: [
+        '1.1.1.1'
+        '1.0.0.1'
+      ]
+    }
+    subnets: [
+      {
+        name: 'frontend'
+        id: virtualNetworks_app_vnet_name_frontend.id
+        properties: {
+          addressPrefix: '10.1.0.0/24'
+          delegations: []
+          privateEndpointNetworkPolicies: 'Disabled'
+          privateLinkServiceNetworkPolicies: 'Enabled'
+        }
+        type: 'Microsoft.Network/virtualNetworks/subnets'
+      }
+      {
+        name: 'backend'
+        id: virtualNetworks_app_vnet_name_backend.id
+        properties: {
+          addressPrefix: '10.1.1.0/24'
+          delegations: []
+          privateEndpointNetworkPolicies: 'Disabled'
+          privateLinkServiceNetworkPolicies: 'Enabled'
+        }
+        type: 'Microsoft.Network/virtualNetworks/subnets'
+      }
+    ]
+    virtualNetworkPeerings: []
+    enableDdosProtection: false
+  }
+  dependsOn: []
+}
