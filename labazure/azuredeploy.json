@@ -78,7 +78,7 @@
             ],
             "properties": {
                 "hardwareProfile": {
-                    "vmSize": "Standard_D2s_v3"
+                    "vmSize": "Standard_DC1s_v2"
                 },
                 "storageProfile": {
                     "imageReference": {
@@ -129,13 +129,13 @@
             "type": "Microsoft.Compute/virtualMachines",
             "apiVersion": "2022-08-01",
             "name": "[parameters('virtualMachines_VM2_name')]",
-            "location": "East US 2",
+            "location": "East US",
             "dependsOn": [
                 "[resourceId('Microsoft.Network/networkInterfaces', parameters('networkInterfaces_VM2_nic_name'))]"
             ],
             "properties": {
                 "hardwareProfile": {
-                    "vmSize": "Standard_D2s_v3"
+                    "vmSize": "Standard_DC1s_v2"
                 },
                 "storageProfile": {
                     "imageReference": {
