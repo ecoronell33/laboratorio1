@@ -38,7 +38,7 @@
             "type": "Microsoft.Network/publicIPAddresses",
             "apiVersion": "2022-07-01",
             "name": "[parameters('publicIPAddresses_VM1_ip_name')]",
-            "location": "East US 2",
+            "location": "East US",
             "sku": {
                 "name": "Basic",
                 "tier": "Regional"
@@ -55,7 +55,7 @@
             "type": "Microsoft.Network/publicIPAddresses",
             "apiVersion": "2022-07-01",
             "name": "[parameters('publicIPAddresses_VM2_ip_name')]",
-            "location": "East US 2",
+            "location": "East US",
             "sku": {
                 "name": "Basic",
                 "tier": "Regional"
@@ -72,13 +72,13 @@
             "type": "Microsoft.Compute/virtualMachines",
             "apiVersion": "2022-08-01",
             "name": "[parameters('virtualMachines_VM1_name')]",
-            "location": "East US 2",
+            "location": "East US",
             "dependsOn": [
                 "[resourceId('Microsoft.Network/networkInterfaces', parameters('networkInterfaces_VM1_nic_name'))]"
             ],
             "properties": {
                 "hardwareProfile": {
-                    "vmSize": "Standard_DC1s_v2"
+                    "vmSize": ""
                 },
                 "storageProfile": {
                     "imageReference": {
@@ -187,7 +187,7 @@
             "type": "Microsoft.Network/networkInterfaces",
             "apiVersion": "2022-07-01",
             "name": "[parameters('networkInterfaces_VM1_nic_name')]",
-            "location": "East US 2",
+            "location": "East US",
             "dependsOn": [
                 "[resourceId('Microsoft.Network/publicIPAddresses', parameters('publicIPAddresses_VM1_ip_name'))]",
                 "[resourceId('Microsoft.Network/virtualNetworks/subnets', parameters('virtualNetworks_app_vnet_name'), 'frontend')]"
@@ -227,7 +227,7 @@
             "type": "Microsoft.Network/networkInterfaces",
             "apiVersion": "2022-07-01",
             "name": "[parameters('networkInterfaces_VM2_nic_name')]",
-            "location": "East US 2",
+            "location": "East US",
             "dependsOn": [
                 "[resourceId('Microsoft.Network/publicIPAddresses', parameters('publicIPAddresses_VM2_ip_name'))]",
                 "[resourceId('Microsoft.Network/virtualNetworks/subnets', parameters('virtualNetworks_app_vnet_name'), 'backend')]"
@@ -295,7 +295,7 @@
             "type": "Microsoft.Network/virtualNetworks",
             "apiVersion": "2022-07-01",
             "name": "[parameters('virtualNetworks_app_vnet_name')]",
-            "location": "East US 2",
+            "location": "East US",
             "dependsOn": [
 
             ],
