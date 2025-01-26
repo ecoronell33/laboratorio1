@@ -78,7 +78,7 @@
             ],
             "properties": {
                 "hardwareProfile": {
-                    "vmSize": ""
+                    "vmSize": "Standard B2ms"
                 },
                 "storageProfile": {
                     "imageReference": {
