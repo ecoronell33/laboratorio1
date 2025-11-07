@@ -40,7 +40,7 @@
             "name": "[parameters('publicIPAddresses_VM1_ip_name')]",
             "location": "Chile Central",
             "sku": {
-                "name": "Basic",
+                "name": "Standard",
                 "tier": "Regional"
             },
             "properties": {
@@ -56,7 +56,7 @@
             "name": "[parameters('publicIPAddresses_VM2_ip_name')]",
             "location": "Chile Central",
             "sku": {
-                "name": "Basic",
+                "name": "Standard",
                 "tier": "Regional"
             },
             "properties": {
