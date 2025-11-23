@@ -9,4 +9,4 @@ EC2
 - Tipo de arquitectura de SO: x64
 Redes
 - IP Publica: Si
-- Puertos: Permitir solo 5501 y 9200
+- Puertos: Permitir solo 5601 y 9200
