@@ -1,5 +1,7 @@
-Implementacion de Sistema de Monitoreo Cloud /n
+Implementacion de Sistema de Monitoreo Cloud
+
 Prerequisitos
+
 Para este escenario se realizara la instalacion sobre una instancia Ec2 en AWS, tomando en cuenta lo siguiente:
 EC2 
 - Sistema Operativo: Ubuntu
