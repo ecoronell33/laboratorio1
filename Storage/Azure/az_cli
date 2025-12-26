@@ -1,0 +1,1 @@
+az vm create -n nautilus-vm -g kml_rg_main-76ec9a735ed645e8 --image Ubuntu2204 --size Standard_B2s --admin-username azureuser --generate-ssh-keys --data-disk-sizes-gb 30 --storage-sku Standard_LRS
