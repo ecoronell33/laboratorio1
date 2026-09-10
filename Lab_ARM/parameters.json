@@ -1,0 +1,166 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "location": {
+            "value": "chilecentral"
+        },
+        "subnetName": {
+            "value": "snet-chilecentral-1"
+        },
+        "virtualNetworkName": {
+            "value": "vnet-chilecentral-1"
+        },
+        "publicIpAddressId": {
+            "value": "MVAnidada-ip"
+        },
+        "pipDeleteOption": {
+            "value": "Detach"
+        },
+        "publicIpAddressName": {
+            "value": "MVAnidada-ip"
+        },
+        "publicIpAddressType": {
+            "value": "Static"
+        },
+        "publicIpAddressSku": {
+            "value": "Standard"
+        },
+        "networkInterfaceName": {
+            "value": "mvanidada261"
+        },
+        "enableAcceleratedNetworking": {
+            "value": false
+        },
+        "networkSecurityGroupName": {
+            "value": "MVAnidada-nsg"
+        },
+        "networkSecurityGroupRules": {
+            "value": [
+                {
+                    "name": "RDP",
+                    "properties": {
+                        "priority": 300,
+                        "protocol": "Tcp",
+                        "access": "Allow",
+                        "direction": "Inbound",
+                        "sourceAddressPrefix": "*",
+                        "sourcePortRange": "*",
+                        "destinationAddressPrefix": "*",
+                        "destinationPortRange": "3389"
+                    }
+                }
+            ]
+        },
+        "virtualMachineName": {
+            "value": "MVAnidada"
+        },
+        "virtualMachineComputerName": {
+            "value": "MVAnidada"
+        },
+        "virtualMachineRG": {
+            "value": "Laboratorio_RH"
+        },
+        "virtualMachineSize": {
+            "value": "Standard_D4s_v3"
+        },
+        "osDiskType": {
+            "value": "Premium_LRS"
+        },
+        "osDiskSizeGiB": {
+            "value": 128
+        },
+        "osDiskDeleteOption": {
+            "value": "Delete"
+        },
+        "dataDisks": {
+            "value": [
+                {
+                    "lun": 0,
+                    "createOption": "Empty",
+                    "deleteOption": "Delete",
+                    "caching": "ReadOnly",
+                    "id": null,
+                    "name": "MVAnidada_DataDisk_0",
+                    "storageAccountType": "StandardSSD_LRS",
+                    "diskSizeGB": 512,
+                    "tier": null,
+                    "diskEncryptionSet": null,
+                    "writeAcceleratorEnabled": false,
+                    "createDiskImplicitly": true
+                }
+            ]
+        },
+        "nicDeleteOption": {
+            "value": "Delete"
+        },
+        "securityType": {
+            "value": "Standard"
+        },
+        "adminUsername": {
+            "value": "ecoronellw"
+        },
+        "adminPassword": {
+            "value": null
+        },
+        "patchMode": {
+            "value": "AutomaticByOS"
+        },
+        "enablePeriodicAssessment": {
+            "value": "ImageDefault"
+        },
+        "enableHotpatching": {
+            "value": false
+        },
+        "hibernationEnabled": {
+            "value": false
+        },
+        "vnetLocation": {
+            "value": "chilecentral"
+        },
+        "vnetExtendedLocation": {
+            "value": {}
+        },
+        "vnetVirtualNetworkName": {
+            "value": "vnet-chilecentral-1"
+        },
+        "vnetResourceGroupName": {
+            "value": "Laboratorio_RH"
+        },
+        "vnetDeploymentName": {
+            "value": "vnetchilecentralTemplateDeployment1789052428293"
+        },
+        "vnetNatGatewaysWithNewPublicIpAddress": {
+            "value": []
+        },
+        "vnetNatGatewaysWithoutNewPublicIpAddress": {
+            "value": []
+        },
+        "vnetNatGatewayPublicIpAddressesNewNames": {
+            "value": []
+        },
+        "vnetNetworkSecurityGroupsNew": {
+            "value": []
+        },
+        "vnetProperties": {
+            "value": {
+                "subnets": [
+                    {
+                        "name": "snet-chilecentral-1",
+                        "properties": {
+                            "addressPrefixes": [
+                                "172.16.0.0/24"
+                            ]
+                        }
+                    }
+                ],
+                "addressSpace": {
+                    "addressPrefixes": [
+                        "172.16.0.0/16"
+                    ]
+                }
+            }
+        },
+        "tags": {}
+    }
+}
